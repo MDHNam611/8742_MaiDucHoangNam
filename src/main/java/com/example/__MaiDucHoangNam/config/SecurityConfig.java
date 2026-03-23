@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +48,9 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/home")
+                // SỬA Ở ĐÂY: Cho phép đăng xuất bằng GET thay vì chỉ POST
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) 
+                .logoutSuccessUrl("/home?logout") 
                 .permitAll()
             )
             // THÊM ĐOẠN NÀY ĐỂ XỬ LÝ LỖI TRUY CẬP TRÁI PHÉP
