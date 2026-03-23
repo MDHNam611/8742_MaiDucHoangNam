@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý học phần</title>
+</head>
+<body>
+    <h1>Quản lý học phần (ADMIN)</h1>
+    <a th:href="@{/admin/courses/add}" style="display:inline-block; margin-bottom: 15px;">+ Thêm học phần mới</a>
+    
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên học phần</th>
+                <th>Tín chỉ</th>
+                <th>Giảng viên</th>
+                <th>Danh mục</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}"></td>
+                <td th:text="${course.name}"></td>
+                <td th:text="${course.credits}"></td>
+                <td th:text="${course.lecturer}"></td>
+                <td th:text="${course.category != null ? course.category.name : ''}"></td>
+                <td>
+                    <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}">Sửa</a> |
+                    <a th:href="@{/admin/courses/delete/{id}(id=${course.id})}" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/home}">Quay lại Trang chủ</a>
+</body>
+</html>
